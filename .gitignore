@@ -1,0 +1,6 @@
+venv/
+.idea/
+webapp2_extras/
+
+.project
+.pydevproject

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Laureate PlayList</title>
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/3-col-portfolio.css" >
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body ng-app="LaureatePlayList">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Laureate PlayList. By: José Enrique Ávila</a>
+                </div>
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container" ng-controller="SearchCtrl" ng-init="deepSearch(true)">
+            <!-- Page Header -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control" placeholder="Buscar" autofocus ng-model="busqueda" ng-keydown="resetLimit()" />
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Loader -->
+            <img src="/img/spinner.gif" class="img-responsive center-block" ng-show="loading" />
+
+            <!-- Projects Row -->
+            <!-- BUG: Existe agujeros debido a que solo se crea un .row -->
+            <div class="row">
+                <div ng-repeat="item in items | filter: busqueda | orderBy:item.snippet.publishedAt | limitTo:searchLimit">
+                    <div class="col-lg-6 portfolio-item">
+                        <h4><a href="{{youtubeUrl(item)}}" target="_blank">{{item.snippet.title}}</a></h4>
+                        <a href="{{youtubeEmbed(item)}}"  class="fancybox fancybox.iframe">
+                            <img src="{{imageUrl(item)}}" alt="Video" />
+                        </a>
+                        <h5>Published At: {{formatDate(item)}}</h5>
+                        <p>{{item.snippet.description}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn btn-large btn-primary center-block" ng-click="moreLimit()">Load more results...</button>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+    <script src="/js/fancybox.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <!--script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script-->
+    </body>
+</html>
